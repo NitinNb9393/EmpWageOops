@@ -3,11 +3,18 @@ package com.birdgelabz.empwage;
 public class EmpWage {
 	private static final int IS_PART_TIME1 = 1;
 	private static final int IS_FULL_TIME1 = 2;
+	private static final int MAX_WORKING_HRS = 0;
+	private static final int MAX_WORKING_DAYS = 0;
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to employee wage");
-		EmpWageForMultipleCompany("Dmart", 20, 2, 10);
-		EmpWageForMultipleCompany("Relience", 10, 4, 20);
+		EmpWageComp company1 = new EmpWageComp();
+		EmpWageComp("Dmart", 20, 20, 100);
+		EmpWageComp company2 = new EmpWageComp();
+		EmpWageComp("Kmart", 22, 20, 70);
+		EmpWageComp company3 = new EmpWageComp();
+		EmpWageComp("Bridgelabz", 15, 2, 20);
+
 		EmpCheck();
 		FullTimeWage();
 		PartTimeWage();
@@ -15,6 +22,34 @@ public class EmpWage {
 		WageForMonth();
 		WageTillCondition();
 		EmployeeWage();
+
+	}
+
+	public static int EmpWageComp(String company, int empRatePerHr, int numWorkingDays, int maxHrs) {
+		int empHrs = 0, totalEmpHrs = 8, totalWorkingDays = 0;
+		while (totalEmpHrs <= MAX_WORKING_HRS && totalWorkingDays < MAX_WORKING_DAYS) {
+			totalWorkingDays++;
+			int empcheck = (int) (Math.floor(Math.random() * 10) % 3);
+			switch (empcheck) {
+			case 2:
+				System.out.println("Employee is Part time ");
+				empHrs = 4;
+				break;
+			case 1:
+				System.out.println("Employee is Full time ");
+				empHrs = 8;
+				break;
+			default:
+				System.out.println("Employee is Absent");
+				empHrs = 0;
+			}
+			totalEmpHrs += empHrs;
+		}
+		int totalEmpWage = totalEmpHrs * EMP_RATE_PER_HOUR;
+		System.out.println(company + " company Total Daily Wage for days " + totalWorkingDays + " and hours "
+				+ totalEmpHrs + " is: " + totalEmpWage);
+
+		return totalEmpWage;
 	}
 
 	public static void EmpCheck() {
